@@ -14,6 +14,8 @@ public class Books {
         add(new Book("C# for dummies", 500, "Einstein", "Documentary"));
     }};
 
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Book create(@RequestBody Book book) {
         this.books.add(book);
 
@@ -41,7 +43,10 @@ public class Books {
     public Book updateBook(@PathVariable int id, @RequestBody Book book){
         for(Book b : books){
             if(b.getId() == id){
-                b = book;
+                b.setAuthor(book.getAuthor());
+                b.setGenre(book.getGenre());
+                b.setTitle(book.getTitle());
+                b.setNumPages(book.getNumPages());
                 return b;
             }
         }
